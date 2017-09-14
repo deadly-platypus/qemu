@@ -752,6 +752,9 @@ static int uhci_complete_td(UHCIState *s, UHCI_TD *td, UHCIAsync *async, uint32_
         *int_mask |= 0x01;
 
     if (pid == USB_TOKEN_IN) {
+        if(usb_fuzzing()) {
+           gen_fuzz((void*)async->buf, (size_t)len);
+        }
         pci_dma_write(&s->dev, td->buffer, async->buf, len);
         if ((td->ctrl & TD_CTRL_SPD) && len < max_len) {
             *int_mask |= 0x02;
