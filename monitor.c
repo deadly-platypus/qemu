@@ -905,7 +905,7 @@ static void hmp_fuzz_usb(Monitor *mon, const QDict *qdict) {
     } else if(!strcmp(op, "off")) {
         stop_usb_fuzz();
     } else {
-        monitor_printf(mon, "Invalid input\n");
+        monitor_printf(mon, "Invalid input: %s\n", op);
         help_cmd(mon, "usb-fuzz");
     }
 }

@@ -433,39 +433,14 @@ static const VMStateDescription vmstate_uhci = {
     }
 };
 
-static uint64_t fuzz_dumb_rand64(void);
-static uint64_t fuzz_rand64(void);
-
-static uint64_t fuzz_dumb_rand64(void) {
-    return (((uint64_t)rand() << 32) | rand());
-}
-
-static uint64_t fuzz_rand64(void) {
-    int fd, readerr;
-    uint64_t result;
-
-    if ((fd = open("/dev/random", O_RDONLY) < 0)) {
-       printf("!!!! Cannot open random !!!!\n");
-       result = fuzz_dumb_rand64();
-    } else {
-        if((readerr = read(fd, &result, sizeof(uint64_t))) != sizeof(uint64_t)) {
-            printf("!!!! read failed: %d !!!!\n", readerr);
-            result = fuzz_dumb_rand64();
-        }
-        close(fd);
-    }
-
-    return result;
-}
-
 static void uhci_port_write(void *opaque, hwaddr addr,
                             uint64_t val, unsigned size)
 {
     UHCIState *s = opaque;
 
+    uint64_t newval = val;
     if(usb_fuzzing()) {
-        uint64_t newval = fuzz_rand64();
-        val = newval;
+        newval = fuzz_rand64();
     }
 
     trace_usb_uhci_mmio_writew(addr, val);

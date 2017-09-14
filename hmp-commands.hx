@@ -298,7 +298,7 @@ ETEXI
 
     {
         .name       = "usb-fuzz",
-        .args_type  = "",
+        .args_type  = "op:s",
         .params     = "on|off",
         .help       = "Start or stop UHCI fuzzing",
         .cmd        = hmp_fuzz_usb,
