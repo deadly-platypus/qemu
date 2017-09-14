@@ -98,6 +98,11 @@ util-obj-y +=  trace/
 target-obj-y += trace/
 
 ######################################################################
+# tracing
+util-obj-y +=  fuzz/
+target-obj-y += fuzz/
+
+######################################################################
 # guest agent
 
 # FIXME: a few definitions from qapi-types.o/qapi-visit.o are needed

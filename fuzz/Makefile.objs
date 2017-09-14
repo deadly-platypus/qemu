@@ -1,0 +1,3 @@
+# -*- mode: makefile -*-
+
+util-obj-y += usb-fuzz.o
