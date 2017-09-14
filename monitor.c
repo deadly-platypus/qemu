@@ -79,6 +79,8 @@
 #include "qemu/cutils.h"
 #include "qapi/qmp/dispatch.h"
 
+#include "fuzz/usb-fuzz.h"
+
 #if defined(TARGET_S390X)
 #include "hw/s390x/storage-keys.h"
 #include "hw/s390x/storage-attributes.h"
@@ -892,6 +894,21 @@ static void hmp_trace_file(Monitor *mon, const QDict *qdict)
     }
 }
 #endif
+
+static void hmp_fuzz_usb(Monitor *mon, const QDict *qdict) {
+    const char *op = qdict_get_try_str(qdict, "op");
+    if(!op) {
+        monitor_printf(mon, "Invalid input\n");
+        help_cmd(mon, "usb-fuzz");
+    } else if(!strcmp(op, "on")) {
+        start_usb_fuzz(); 
+    } else if(!strcmp(op, "off")) {
+        stop_usb_fuzz();
+    } else {
+        monitor_printf(mon, "Invalid input\n");
+        help_cmd(mon, "usb-fuzz");
+    }
+}
 
 static void hmp_info_help(Monitor *mon, const QDict *qdict)
 {

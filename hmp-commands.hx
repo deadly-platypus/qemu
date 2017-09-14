@@ -289,6 +289,21 @@ ETEXI
         .command_completion = trace_event_completion,
     },
 
+
+STEXI
+@item usb-fuzz
+@findex usb-fuzz
+Start or stop USB fuzzing
+ETEXI
+
+    {
+        .name       = "usb-fuzz",
+        .args_type  = "",
+        .params     = "on|off",
+        .help       = "Start or stop UHCI fuzzing",
+        .cmd        = hmp_fuzz_usb,
+    },
+
 STEXI
 @item trace-event
 @findex trace-event
