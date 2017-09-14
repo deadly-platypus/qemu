@@ -1,4 +1,4 @@
-#include "fuzz/fuzz-common.h"
+#include "fuzz/common-fuzz.h"
 
 static unsigned int currently_fuzzing = 0;
 
@@ -15,7 +15,7 @@ int gen_fuzz(void* dest, size_t len) {
     } else {
         if((readerr = read(fd, dest, len)) != len) {
             printf("!!!! read failed: %d !!!!\n", readerr);
-            result = -1
+            result = -1;
         }
         close(fd);
     }

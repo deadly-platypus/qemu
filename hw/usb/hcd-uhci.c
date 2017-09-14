@@ -438,11 +438,6 @@ static void uhci_port_write(void *opaque, hwaddr addr,
 {
     UHCIState *s = opaque;
 
-    uint64_t newval = val;
-    if(usb_fuzzing()) {
-        newval = fuzz_rand64();
-    }
-
     trace_usb_uhci_mmio_writew(addr, val);
 
     switch(addr) {
